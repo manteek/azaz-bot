@@ -1,7 +1,7 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
-
+from datetime import timedelta
 
 class Polls(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -18,7 +18,7 @@ class Polls(commands.Cog):
         self, interaction: discord.Interaction, question: str, option1: str, option2: str,
         option3: str = None, option4: str = None, duration_hours: app_commands.Range[int, 1, 168] = 24,
     ):
-        poll = discord.Poll(question=question, duration=discord.timedelta(hours=duration_hours))
+        poll = discord.Poll(question=question, duration=timedelta(hours=duration_hours))
         for option in filter(None, [option1, option2, option3, option4]):
             poll.add_answer(text=option)
 

@@ -4,6 +4,7 @@ from discord.ext import commands
 
 from utils.embeds import error_embed, success_embed
 from utils.logging_helper import send_log
+from datetime import timedelta
 
 # guild_id -> user_id -> list[timestamps] (in-memory, resets on restart — fine for a rolling few-second window)
 _spam_tracker: dict[int, dict[int, list[float]]] = {}
@@ -41,7 +42,7 @@ class MessageEvents(commands.Cog):
             if not isinstance(member, discord.Member):
                 return
             try:
-                duration = discord.utils.utcnow() + discord.timedelta(seconds=config["antispam_timeout_seconds"])
+                duration = discord.utils.utcnow() + timedelta(seconds=config["antispam_timeout_seconds"])
                 await member.timeout(duration, reason="Automatic anti-spam timeout")
                 await message.channel.send(
                     embed=error_embed("Slow down", f"{member.mention} was timed out for spamming."),

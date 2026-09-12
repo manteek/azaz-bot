@@ -6,6 +6,7 @@ from utils.embeds import success_embed, error_embed
 from utils.permissions import has_permission, bot_has_permission
 from utils.helpers import is_hierarchy_safe
 from utils.logging_helper import send_log
+from datetime import timedelta
 
 
 class Moderation(commands.Cog):
@@ -66,7 +67,7 @@ class Moderation(commands.Cog):
         if not is_hierarchy_safe(interaction.user, member):
             return await interaction.response.send_message(embed=error_embed("Action blocked", "You can't time out someone with an equal or higher role."), ephemeral=True)
 
-        duration = discord.utils.utcnow() + discord.timedelta(minutes=minutes)
+        duration = discord.utils.utcnow() + timedelta(minutes=minutes)
         await member.timeout(duration, reason=reason)
         await interaction.response.send_message(embed=success_embed("Member timed out", f"{member.mention} timed out for {minutes} minute(s).\nReason: {reason or 'No reason provided'}"))
         await self._log(interaction, "🔇 Member timed out", f"{member} ({minutes}m)", reason)
