@@ -27,7 +27,7 @@ class ServerSetup(commands.Cog):
         if staff_role:
             staff_overwrites[staff_role] = discord.PermissionOverwrite(view_channel=True)
 
-        async def get_or_create_category(name, overwrites=None):
+        async def get_or_create_category(name, overwrites={}):
             existing = discord.utils.get(guild.categories, name=name)
             if existing:
                 return existing
@@ -35,7 +35,7 @@ class ServerSetup(commands.Cog):
             created.append(f"📁 {name}")
             return cat
 
-        async def get_or_create_text(name, category, overwrites=None):
+        async def get_or_create_text(name, category, overwrites={}):
             existing = discord.utils.get(guild.text_channels, name=name, category=category)
             if existing:
                 return existing
