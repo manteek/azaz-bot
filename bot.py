@@ -22,6 +22,7 @@ INITIAL_EXTENSIONS = [
     "commands.polls",
     "commands.reminders",
     "commands.server_setup",
+    "commands.lockdown",
     "events.member_events",
     "events.message_events",
     "events.logging",
