@@ -21,6 +21,7 @@ INITIAL_EXTENSIONS = [
     "commands.economy",
     "commands.polls",
     "commands.reminders",
+    "commands.server_setup",
     "events.member_events",
     "events.message_events",
     "events.logging",
