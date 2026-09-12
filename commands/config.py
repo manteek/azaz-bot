@@ -37,6 +37,12 @@ class Config(commands.Cog):
         await self.bot.db.update_guild_config(interaction.guild.id, log_channel_id=channel.id)
         await interaction.response.send_message(embed=success_embed("Log channel set", channel.mention))
 
+    @config_group.command(name="welcome-banner", description="Set an image/GIF shown on welcome messages")
+    @app_commands.describe(url="Direct image URL (right-click an image online → Copy Image Address)")
+    async def welcome_banner(self, interaction: discord.Interaction, url: str):
+        await self.bot.db.update_guild_config(interaction.guild.id, welcome_banner_url=url)
+        await interaction.response.send_message(embed=success_embed("Welcome banner set", "Preview will show on the next member join."))
+
     @config_group.command(name="autorole", description="Set a role automatically given to new members")
     async def autorole(self, interaction: discord.Interaction, role: discord.Role):
         await self.bot.db.update_guild_config(interaction.guild.id, autorole_id=role.id)

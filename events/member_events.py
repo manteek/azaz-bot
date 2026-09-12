@@ -17,7 +17,12 @@ class MemberEvents(commands.Cog):
             channel = member.guild.get_channel(config["welcome_channel_id"])
             if channel:
                 try:
-                    await channel.send(embed=success_embed("👋 Welcome!", f"{member.mention} just joined **{member.guild.name}**."))
+                    if config["welcome_banner_url"]:
+                        embed = success_embed("👋 Welcome!", f"{member.mention} just joined **{member.guild.name}**.")
+                        embed.set_image(url=config["welcome_banner_url"])
+                        await channel.send(embed=embed)
+                    else:
+                        await channel.send(embed=success_embed("👋 Welcome!", f"{member.mention} just joined **{member.guild.name}**."))
                 except discord.Forbidden:
                     pass
 

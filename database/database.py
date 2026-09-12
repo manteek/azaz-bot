@@ -96,6 +96,14 @@ class Database:
             );
         """)
         await self.conn.commit()
+        await self._migrate_add_column("guild_config", "welcome_banner_url", "TEXT")
+
+    async def _migrate_add_column(self, table: str, column: str, col_type: str):
+        cursor = await self.conn.execute(f"PRAGMA table_info({table})")
+        columns = [row["name"] for row in await cursor.fetchall()]
+        if column not in columns:
+            await self.conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {col_type}")
+            await self.conn.commit()
 
     # --- Warnings ---
 
