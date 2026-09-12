@@ -56,7 +56,7 @@ class Utility(commands.Cog):
             value="`/poll` `/remind`",
             inline=False,
         )
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="userinfo", description="Show information about a user")
     @app_commands.describe(member="The user to look up (defaults to you)")
